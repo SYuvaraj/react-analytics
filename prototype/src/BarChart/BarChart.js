@@ -1,83 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import * as d3 from '../../node_modules/d3/dist/d3';
-import './BarChart.css';
+import * as d3 from 'd3';
+import React, { useRef, useEffect } from 'react';	
 
-const BarChart = () =>  {
+function BarChart({ width, height, data }){
+    const ref = useRef();
 
     useEffect(() => {
-        var dataset = [80,100,56,120,180,30,40,120,160];
-        var svgWidth = 500, svgHeight = 300, barPadding = 5;
-        var barWidth = (svgWidth / dataset.length);
+        const svg = d3.select(ref.current)
+            .attr("width", width)
+            .attr("height", height)
+            .style("border", "1px solid black")
+    }, []);
 
-        var svg = d3.select('svg')
-                  .attr("width", svgWidth)
-                  .attr("height", svgHeight);
+    useEffect(() => {
+        draw();
+    }, [data]);
+
+    const draw = () => {
         
-        var barchart = svg.selectAll("rect")
-        .data(dataset)
-        .enter()
-        .append("rect")
-        .attr("y", function(d){
-            return svgHeight - d
-        })
-        .attr("height", function(d){
-                return d;
-        })
-        .attr("width", barWidth - barPadding)
-        .attr("transform", function(d,i){
-            var translate = [barWidth * i, 0];
-            return "translate("+translate+")";
-        });
+        const svg = d3.select(ref.current);
+        var selection = svg.selectAll("rect").data(data);
+        var yScale = d3.scaleLinear()
+                            .domain([0, d3.max(data)])
+                            .range([0, height-100]);
+        
+        selection
+            .transition().duration(300)
+                .attr("height", (d) => yScale(d))
+                .attr("y", (d) => height - yScale(d))
 
-        var text = svg.selectAll("text")
-            .data(dataset)
+        selection
             .enter()
-            .append("text")
-            .text(function(d){
-                return d;
-            })
-            .attr("y",function(d,i){
-                return svgHeight - d - 2;
-            })
-            .attr("x",function(d, i){
-                return barWidth * i;
-            })
-            .attr("fill", "#A64C38");
+            .append("rect")
+            .attr("x", (d, i) => i * 45)
+            .attr("y", (d) => height)
+            .attr("width", 40)
+            .attr("height", 0)
+            .attr("fill", "orange")
+            .transition().duration(300)
+                .attr("height", (d) => yScale(d))
+                .attr("y", (d) => height - yScale(d))
+        
+        selection
+            .exit()
+            .transition().duration(300)
+                .attr("y", (d) => height)
+                .attr("height", 0)
+            .remove()
+    }
 
-            //axes
-            var xScale = d3.scaleLinear()
-                .domain([0, d3.max(dataset)])
-                .range([0, svgWidth]);
 
-            var yScale = d3.scaleLinear()
-            .domain([0, d3.max(dataset)])
-            .range([svgHeight,0]);
+    return (
+        <div className="chart">
+            <svg ref={ref}>
+            </svg>
+        </div>
+        
+    )
 
-            var x_axis = d3.axisBottom()
-                .scale(xScale);
-            
-            var y_axis = d3.axisLeft().scale(yScale)
-                .scale(yScale);
-
-            svg.append("g")
-                .attr("transform", "translate(50, 10)")
-                .call(y_axis);
-
-            var xAxisTranslate = svgHeight - 20;
-
-            svg.append("g")
-                .attr("transform", "translate(50, "+ xAxisTranslate +")")
-                .call(x_axis);
-    });
-    return(
-        <div>
-
-            <div className="head"><p>Bar Chart</p></div>
-            <div className="barchartgroup">
-             <svg className="barchart"></svg>
-            </div>                       
-        </div> 
-    );
 }
 
 export default BarChart;

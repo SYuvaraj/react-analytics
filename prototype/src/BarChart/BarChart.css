@@ -4,3 +4,47 @@
 .barchartgroup{
     padding:15px;
 }
+.line {
+    fill: none;
+    stroke: green;
+    stroke-width: 5px;
+ }
+ .bar {
+    fill: steelblue;
+  }
+  
+  .bar:hover {
+    fill: brown;
+  }
+  
+  .axis--x path {
+    display: none;
+  }
+  
+  
+  svg {
+      position: absolute;
+    margin-top: 40px;
+  }
+  
+  select {
+    margin-left: 60px;
+  }
+
+
+.rectangle {
+	fill: steelblue;
+}
+.rectangle:hover {
+	fill: orange;
+}
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

@@ -1,19 +1,26 @@
 .dashhead{
     overflow: hidden;
     padding:15px;
+    background-color:rgb(62, 78, 91);
 }
 h2{
     float: left;
-    margin:0
+    margin:0;
+    color: #fff;
 }
 
 .signout{
-    background-color: rgb(88,184,72);
+    background-color:rgb(62, 78, 91);
     color:#fff;
     padding:5px 15px;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
-    border:1px solid rgb(88,184,72);
+    font-weight: 700;
     margin-right:25px;
     float: right;
-  }
+    -webkit-appearance:none;
+    appearance: none;
+    -moz-appearance:none;
+    cursor: pointer;
+
+  } 
