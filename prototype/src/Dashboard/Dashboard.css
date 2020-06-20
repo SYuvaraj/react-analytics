@@ -1,5 +1,9 @@
-.dashhead{
+.dashboard{
     overflow: hidden;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
     padding:15px;
     background-color:rgb(62, 78, 91);
 }
@@ -9,7 +13,7 @@ h2{
     color: #fff;
 }
 
-.signout{
+.logout{
     background-color:rgb(62, 78, 91);
     color:#fff;
     padding:5px 15px;
@@ -17,10 +21,41 @@ h2{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     margin-right:25px;
-    float: right;
-    -webkit-appearance:none;
-    appearance: none;
-    -moz-appearance:none;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+} 
 
-  } 
+.actionbtn{
+    background-color:rgb(62, 78, 91);
+    color:#fff;
+    border: 1px solid rgb(62, 78, 91);
+    margin-right: 15px;
+    outline: 0;
+    padding:5px 15px;
+}
+
+.actionbtn:hover, .actionbtn:active,
+.actionbtn:visited, .actionbtn:focus
+{
+    border: 1px solid rgb(62, 78, 91);
+}
+
+.userdetails{
+    float:right;
+}
+.user, .logout{
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+}
+.user{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    vertical-align: middle;
+    display:inline-block;
+    border-right:1px solid #fff;
+    padding-right: 15px;
+    text-transform: uppercase;
+}

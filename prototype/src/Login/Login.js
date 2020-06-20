@@ -1,44 +1,77 @@
-import React, {useState } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from '../../node_modules/reactstrap';
-import {Route,withRouter} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Button, Form, FormGroup, Input, Label } from '../../node_modules/reactstrap';
+import { withRouter } from 'react-router-dom';
 import './Login.css';
+import Modal from "../Modal/Modal";
+import useModal from '../Modal/useModal';
 
 const Login = (props) => {
-    console.log('props',props)
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const {isShowing, toggle} = useModal();
+    //login states
+    const [emailaddress, setEmail] = useState(null);
+    const [currentpassword, setPassword] = useState(null);
+    const [emailError, setEmailError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
+    const [invalidCredentials, setInvalidCredentials] = useState(null);
+    const [setUser, setUserNull] = useState();
 
-    function validateForm() {
-        return email.length > 0 && password.length > 0;
-      }
-    
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        if ( email == "s.yuvaraj03@gmail.com" && password == "1234"){
-            props.history.push('/dashboard');
-        }
+        let user = JSON.parse(localStorage.getItem('user'));
+        
+        if(user !== null && user !== undefined ){
+            let { email, regpassword} = user;
+            if(emailaddress === null){
+                setEmailError('Email cannot be blank')
+            }
+            if(currentpassword === null){
+                setPasswordError('Password cannot be blank')
+            }
+            if( emailaddress !== null && emailaddress !== email && currentpassword !== null && currentpassword !== regpassword){
+                setInvalidCredentials('Invalid Credentials');
+            }
+            if( emailaddress === email && regpassword === currentpassword && user !== null){
+                props.history.push('/dashboard');
+            }
+        }else{
+            setUserNull('No Records Found!!! Please Sign Up')
+        }                
     }
-    
     return (
         <div className="Login">
             <div className="signinlabel">Sign In</div>
             <Form>
                 <FormGroup onSubmit={handleSubmit}>
-                    <Input type="email" 
-                    name="email" 
-                    id="exampleEmail" 
-                    placeholder="Email" 
-                    onChange={e => setEmail(e.target.value)}
-                    />
+                    <Label for="email" className = "label">Email address</Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        className="input"
+                        name="email"
+                        placeholder="Enter email"
+                        onChange={e => setEmail(e.target.value)} />
                 </FormGroup>
+                {emailError && <p className="error">{emailError}</p> }
                 <FormGroup>
-                    <Input type="password"
-                     name="password" id="examplePassword" 
-                     placeholder="password" 
-                     onChange={e => setPassword(e.target.value)}/>                    
+                    <Label for="password">Password</Label>
+                    <Input
+                        id="password"
+                        type="password"
+                        className="input"
+                        name="password"
+                        placeholder="Password"
+                        onChange={e => setPassword(e.target.value)} />
                 </FormGroup>
-                <Button className="signin" onClick = {handleSubmit}>SIGN IN</Button>
+                { passwordError && <p className="error">{passwordError}</p> }
+                {invalidCredentials &&  <p className="error">{invalidCredentials}</p>}
+                <Button className="signin" onClick={handleSubmit}>SIGN IN</Button>
+                <p>Don't have an accout? <span className = 'signuptxt' onClick= {toggle} >Sign Up</span></p>
+                {setUser && <p className="setuser">{setUser}</p>}
             </Form>
+            <Modal
+            isShowing={isShowing} 
+            hide = {toggle}
+             />
         </div>
     );
 }

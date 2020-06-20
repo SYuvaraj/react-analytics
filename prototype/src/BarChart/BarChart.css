@@ -1,50 +1,70 @@
-.head{
-    padding:15px;
-}
-.barchartgroup{
-    padding:15px;
-}
-.line {
-    fill: none;
-    stroke: green;
-    stroke-width: 5px;
- }
- .bar {
-    fill: steelblue;
-  }
-  
-  .bar:hover {
-    fill: brown;
-  }
-  
-  .axis--x path {
-    display: none;
-  }
-  
-  
-  svg {
-      position: absolute;
-    margin-top: 40px;
-  }
-  
-  select {
-    margin-left: 60px;
-  }
-
-
-.rectangle {
-	fill: steelblue;
-}
-.rectangle:hover {
-	fill: orange;
-}
-.axis {
-  font: 10px sans-serif;
+body {
+  font-family: 'Open Sans', sans-serif;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+div#layout {
+  text-align: center;
 }
+
+div#container {
+  width: 1000px;
+  height: 600px;
+  margin: auto;
+  background-color: #2F4A6D;
+}
+
+svg {
+  width: 300px;
+  height: 150px;
+  background-color:#eee;
+  overflow: visible !important;
+}
+
+
+
+path {
+  stroke: gray;
+}
+
+line {
+  stroke: gray;
+}
+
+line#limit {
+  stroke: #FED966;
+  stroke-width: 3;
+  stroke-dasharray: 3 6;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+.grid .tick line {
+  stroke: #9FAAAE;
+  stroke-opacity: 0.3;
+}
+
+text.divergence {
+  font-size: 14px;
+  fill: #2F4A6D;
+}
+
+text.value {
+  font-size: 14px;
+}
+
+text.title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+text.label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+text.source {
+  font-size: 10px;
+}
+.col-md-6{padding:15px;}
