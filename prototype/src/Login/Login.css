@@ -173,3 +173,9 @@ button {
   font-size: 14px;
   color: green;
 }
+.dob, .react-datepicker-wrapper{width: 100% !important;}
+.react-datepicker__input-container input{
+  width: 100%;
+  border: 1px solid #ced4da;
+  padding: .375rem .75rem;
+}

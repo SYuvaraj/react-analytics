@@ -2,27 +2,29 @@ import React, { useState } from 'react';
 import { ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../Login/Login';
 import { withRouter } from 'react-router-dom';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Modal = (props) => {
   //signup state
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [email, setEmail] = useState("");
-  const [dob, setDOB] = useState("");
+  const [dob, setDOB] = useState(new Date());
   const [mobile, setMobile] = useState("");
   const [regpassword, setRegPassword] = useState("");
   const [confirmregpassword, setconfrimRegPassword] = useState("");
-
   const handleSignUp = (event) => {
     event.preventDefault();
-    const userDetails = { fname, lname, email, dob, mobile, regpassword,  confirmregpassword};
+    let formatedDOB = JSON.stringify(dob).substring(1, 11);
+    const userDetails = { fname, lname, email,formatedDOB, mobile, regpassword,  confirmregpassword};
     // store the user in localStorage
     localStorage.setItem('user', JSON.stringify(userDetails));
     if( localStorage.getItem('user') && localStorage.getItem('user') !== null){
       props.history.push('/dashboard');
     }
   }
+
 if (props.isShowing){
 return(
   <React.Fragment>
@@ -57,10 +59,18 @@ return(
                 </div>
                </div>
               <div className="row">
-             <div className="form-group">
-            <label>Date of Birth:</label>
-                <input type="text" value = {dob} onChange = {(event) => setDOB(event.target.value)} className="form-control" />
-               </div>
+             <div className="form-group dob">
+              <label>Date of Birth:</label>
+                  {/* <input type="text" value = {dob} onChange = {(event) => setDOB(event.target.value)} className="form-control" /> */}
+                  <DatePicker
+                    selected={dob}
+                    onChange={date => setDOB(date)}
+                    peekNextMonth
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                  />
+                </div>
               </div>
               <div className="row">
              <div className="form-group">

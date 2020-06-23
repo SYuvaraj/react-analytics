@@ -47,7 +47,7 @@ const Dashboard = (props) =>{
       const allKeys = ["ProductA", "ProductB", "ProductC"];
       const colors = {
           "ProductA": "green",
-          "ProductB": "orange",
+          "ProductB": "#8d0f0f",
           "ProductC": "purple"
         };
         
