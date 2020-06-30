@@ -6,6 +6,8 @@ import Dashboard from './Dashboard/Dashboard';
 import {BrowserRouter,Route} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import GraphQL from '../src/GraphQLComp';
+
 
 
 ReactDOM.render(
@@ -13,6 +15,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Route exact path="/" component = {Login} />
       <Route  path="/dashboard" component = {Dashboard} />
+      <Route  path="/graphql" component = {GraphQL} />
     </BrowserRouter>  
   </React.StrictMode>,
   document.getElementById('root')
